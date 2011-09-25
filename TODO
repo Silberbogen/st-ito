@@ -1,0 +1,15 @@
+vt emulation
+------------
+
+* screen erased with background color ## capname:bce
+* back tab                            ## capname:cbt ## seq:CSI Z
+* ...
+
+code & interface
+----------------
+
+* clean selection code
+* use the real x11 clipboard
+* clean terminfo entry
+* utf8
+* ...
