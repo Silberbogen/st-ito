@@ -1,31 +1,79 @@
-.TH ST 1 st-VERSION
+.TH ST 1 st\-VERSION
 .SH NAME
 st \- simple terminal
 .SH SYNOPSIS
 .B st
+.RB [ \-a ]
 .RB [ \-c
 .IR class ]
+.RB [ \-f
+.IR font ]
+.RB [ \-g
+.IR geometry ]
+.RB [ \-o
+.IR file ]
 .RB [ \-t 
 .IR title ]
+.RB [ \-w 
+.IR windowid ]
 .RB [ \-v ]
 .RB [ \-e
-.IR cmd ]
+.IR command ...]
 .SH BESCHREIBUNG
 .B st
 ist ein einfacher Terminal-Emulator.
 .SH OPTIONEN
 .TP
-.B \-t Titel
-Überschreibt den vorausgewählten Titel (st)
+.B \-a
+schaltet alternative Bildschirme im Terminal aus
 .TP
-.B \-c class
-Überschreibt die vorausgewählte Klasse ($TERM)
+.BI \-c " class"
+definiert die Fenster-Klasse (Vorgabe: $TERM).
+.TP
+.BI \-f " font"
+definiert die Schriftart (Vorgabe: Meslo LG S).
+.I font
+wird genutzt während st läuft.
+.TP
+.BI \-g " geometry"
+definiert die X11-Geometrie-Zeichenkette, welche die Höhe und Breite von st festlegt. 
+Die Vorlage hierfür ist [=][<width>{xX}<height>][{+-}<xoffset>{+-}<yoffset>]. Siehe
+.BR XParseGeometry (3)
+bezüglich weiterer Details.
+.TP
+.BI \-o " file"
+schreibt alle Ein-/Ausgaben nach
+.I file.
+Diese Fähigkeit ist nützlich, wenn man st-Sitzungen aufzeichnet. Ein Wert von "-" bedeutet
+Standardausgabe.
+.TP
+.BI \-t " title"
+definiert den Fenstertitel (Vorgabe: 'st').
+.TP
+.BI \-w " windowid"
+bettet st in das Fenster 
+.I windowid
+ein.
 .TP
 .B \-v
-Gibt Versionsinformationen über die Standardausgabe aus und beendet st dann.
+druckt Versionsinformationen über stderr aus, beendet dann.
 .TP
-.B \-e cmd [argumente]
-Führt den Befehl cmd anstelle der Shell aus. Gib deinen Befehl so an, wie du ihn sonst in der Shell eingeben würdest. Wird diese Option genutzt, so
-.BI "muß sie in der Reihenfolge die letzte sein"
-! Dies ist dasselbe Verhalten wie bei xterm/rxvt.
+.BI \-e " programm " [ " argumente " "... ]"
+st führt
+.I programm
+anstell der Shell aus. Wird dies genutzt, so
+.B MUSS es die letze Option
+auf der Eingabezeile sein, wie bei xterm / rxvt.
+.SH ANPASSUNGEN
+.B st
+kann angepasst werden durch Erstellung einer eigenen config.h und (Re)compilation des
+Quellcodes. So bleibt st schnell, sicher und einfach.
+.SH AUTHOREN
+Siehe in die LICENSE-Datei nach den Autoren.
+.SH LICENSE
+Sieh in die LICENSE-Datei bezüglich der Bedingungen zur Verbreitung.
+.SH SIEHE AUCH
+.BR tabbed (1)
+.SH BUGS
+Siehe in die TODO-Datei der Distribution.
 

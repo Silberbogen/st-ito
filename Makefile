@@ -48,6 +48,7 @@ install: all
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	@sed "s/VERSION/${VERSION}/g" < st.1 > ${DESTDIR}${MANPREFIX}/man1/st.1
 	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/st.1
+	@echo Please see the README file regarding the terminfo entry of st.
 	@tic -s st.info
 
 uninstall:

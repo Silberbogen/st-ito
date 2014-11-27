@@ -1,26 +1,34 @@
 st - simple terminal
 --------------------
-st ist ein einfacher virtueller Terminal-Emulator für X der weniger nervt ("sucks less").
+st is a simple virtual terminal emulator for X which sucks less.
 
 
-Anforderungen
--------------
-Um st bauen zu können, benötigt man die Xlib header Dateien.
+Requirements
+------------
+In order to build st you need the Xlib header files.
 
 
 Installation
 ------------
-Bearbeite config.mk um sie an deine lokalen Einstellungen anzupassen (st wird für gewöhnlich in den Namensraum /usr/local/ installiert).
+Edit config.mk to match your local setup (st is installed into
+the /usr/local namespace by default).
 
-Gebe anschließend den folgenden Befehl ein um st zu bauen und installieren (wenn nötig, als root):
+Afterwards enter the following command to build and install st (if
+necessary as root):
 
     make clean install
 
 
-st laufen lassen
-----------------
-Wirf einen Blick in die Man-Seite für Details.
+Running st
+----------
+If you did not install st with make clean install, you must compile
+the st terminfo entry with the following command:
+
+    tic -s st.info
+
+See the man page for additional details.
 
 Credits
 -------
-Basiert auf  Aurélien APTEL's <aurelien dot aptel at gmail dot com> bt Quelltexten.
+Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
+
