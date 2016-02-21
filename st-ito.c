@@ -583,7 +583,7 @@ xmalloc(size_t len)
 	void *p = malloc(len);
 
 	if (!p)
-		die("Out of memory\n");
+		die("Speicher ausgereizt\n");
 
 	return p;
 }
@@ -592,7 +592,7 @@ void *
 xrealloc(void *p, size_t len)
 {
 	if ((p = realloc(p, len)) == NULL)
-		die("Out of memory\n");
+		die("Speicher ausgereizt\n");
 
 	return p;
 }
@@ -601,7 +601,7 @@ char *
 xstrdup(char *s)
 {
 	if ((s = strdup(s)) == NULL)
-		die("Out of memory\n");
+		die("Speicher ausgereizt\n");
 
 	return s;
 }
@@ -1091,7 +1091,7 @@ selnotify(XEvent *e)
 					BUFSIZ/4, False, AnyPropertyType,
 					&type, &format, &nitems, &rem,
 					&data)) {
-			fprintf(stderr, "Clipboard allocation failed\n");
+			fprintf(stderr, "Clipboard Zuteilung fehlgeschlagen\n");
 			return;
 		}
 
@@ -1237,7 +1237,7 @@ selrequest(XEvent *e)
 			seltext = sel.clipboard;
 		} else {
 			fprintf(stderr,
-				"Unhandled clipboard selection 0x%lx\n",
+				"Unbehandelte Clipboard-Auswahl 0x%lx\n",
 				xsre->selection);
 			return;
 		}
@@ -1252,7 +1252,7 @@ selrequest(XEvent *e)
 
 	/* all done, send a notification to the listener */
 	if (!XSendEvent(xsre->display, xsre->requestor, 1, 0, (XEvent *) &xev))
-		fprintf(stderr, "Error sending SelectionNotify event\n");
+		fprintf(stderr, "Fehlerhafte Zusendung des Auswahl-Notifikations-Ereignisses\n");
 }
 
 void
@@ -1334,7 +1334,7 @@ execsh(void)
 		if (errno)
 			die("getpwuid:%s\n", strerror(errno));
 		else
-			die("who are you?\n");
+			die("Wer bist du?\n");
 	}
 
 	if ((sh = getenv("SHELL")) == NULL)
@@ -1378,13 +1378,13 @@ sigchld(int a)
 	pid_t p;
 
 	if ((p = waitpid(pid, &stat, WNOHANG)) < 0)
-		die("Waiting for pid %hd failed: %s\n", pid, strerror(errno));
+		die("Warten auf PID %hd fehlgeschlagen: %s\n", pid, strerror(errno));
 
 	if (pid != p)
 		return;
 
 	if (!WIFEXITED(stat) || WEXITSTATUS(stat))
-		die("child finished with error '%d'\n", stat);
+		die("Kindprozeß beendete mit Fehler '%d'\n", stat);
 	exit(0);
 }
 
@@ -1396,13 +1396,13 @@ stty(void)
 	size_t n, siz;
 
 	if ((n = strlen(stty_args)) > sizeof(cmd)-1)
-		die("incorrect stty parameters\n");
+		die("Fehlerhafte stty Parameter\n");
 	memcpy(cmd, stty_args, n);
 	q = cmd + n;
 	siz = sizeof(cmd) - n;
 	for (p = opt_cmd; p && (s = *p); ++p) {
 		if ((n = strlen(s)) > siz-1)
-			die("stty parameter length too long\n");
+			die("stty Parameterlänge zu groß\n");
 		*q++ = ' ';
 		q = memcpy(q, s, n);
 		q += n;
@@ -1410,7 +1410,7 @@ stty(void)
 	}
 	*q = '\0';
 	if (system(cmd) != 0)
-	    perror("Couldn't call stty");
+	    perror("Konnte stty nicht aufrufen");
 }
 
 void
@@ -1424,14 +1424,14 @@ ttynew(void)
 		iofd = (!strcmp(opt_io, "-")) ?
 			  1 : open(opt_io, O_WRONLY | O_CREAT, 0666);
 		if (iofd < 0) {
-			fprintf(stderr, "Error opening %s:%s\n",
+			fprintf(stderr, "Fehler beim Öffnen von %s:%s\n",
 				opt_io, strerror(errno));
 		}
 	}
 
 	if (opt_line) {
 		if ((cmdfd = open(opt_line, O_RDWR)) < 0)
-			die("open line failed: %s\n", strerror(errno));
+			die("Zeile öffnen fehlgeschlagen: %s\n", strerror(errno));
 		dup2(cmdfd, 0);
 		stty();
 		return;
@@ -1439,11 +1439,11 @@ ttynew(void)
 
 	/* seems to work fine on linux, openbsd and freebsd */
 	if (openpty(&m, &s, NULL, NULL, &w) < 0)
-		die("openpty failed: %s\n", strerror(errno));
+		die("openpty fehlgeschlagen: %s\n", strerror(errno));
 
 	switch (pid = fork()) {
 	case -1:
-		die("fork failed\n");
+		die("fork fehlgeschlagen\n");
 		break;
 	case 0:
 		close(iofd);
@@ -1452,7 +1452,7 @@ ttynew(void)
 		dup2(s, 1);
 		dup2(s, 2);
 		if (ioctl(s, TIOCSCTTY, NULL) < 0)
-			die("ioctl TIOCSCTTY failed: %s\n", strerror(errno));
+			die("ioctl TIOCSCTTY fehlgeschlagen: %s\n", strerror(errno));
 		close(s);
 		close(m);
 		execsh();
@@ -1477,7 +1477,7 @@ ttyread(void)
 
 	/* append read bytes to unprocessed bytes */
 	if ((ret = read(cmdfd, buf+buflen, LEN(buf)-buflen)) < 0)
-		die("Couldn't read from shell: %s\n", strerror(errno));
+		die("Konnte nicht aus Shell lesen: %s\n", strerror(errno));
 
 	/* process every complete utf8 char */
 	buflen += ret;
@@ -1517,7 +1517,7 @@ ttywrite(const char *s, size_t n)
 		if (pselect(cmdfd+1, &rfd, &wfd, NULL, NULL, NULL) < 0) {
 			if (errno == EINTR)
 				continue;
-			die("select failed: %s\n", strerror(errno));
+			die("Auswahl fehlgeschlagen: %s\n", strerror(errno));
 		}
 		if (FD_ISSET(cmdfd, &wfd)) {
 			/*
@@ -1548,7 +1548,7 @@ ttywrite(const char *s, size_t n)
 	return;
 
 write_error:
-	die("write error on tty: %s\n", strerror(errno));
+	die("Schreibfehelr auf tty: %s\n", strerror(errno));
 }
 
 void
@@ -1576,7 +1576,7 @@ ttyresize(void)
 	w.ws_xpixel = xw.tw;
 	w.ws_ypixel = xw.th;
 	if (ioctl(cmdfd, TIOCSWINSZ, &w) < 0)
-		fprintf(stderr, "Couldn't set window size: %s\n", strerror(errno));
+		fprintf(stderr, "Konnte Fenstergröße nicht einstellen: %s\n", strerror(errno));
 }
 
 int
