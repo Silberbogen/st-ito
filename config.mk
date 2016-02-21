@@ -1,4 +1,4 @@
-# st version
+# st-ito version
 VERSION = 0.6
 
 # Customize below to fit your system

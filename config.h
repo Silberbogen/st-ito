@@ -9,7 +9,7 @@ static char font[] = "Liberation Mono:pixelsize=12:antialias=false:autohint=fals
 static int borderpx = 2;
 
 /*
- * What program is execed by st depends of these precedence rules:
+ * What program is execed by stito depends of these precedence rules:
  * 1: program passed with -e
  * 2: utmp option
  * 3: SHELL environment variable
@@ -41,7 +41,7 @@ static unsigned int tripleclicktimeout = 600;
 /* alt screens */
 static int allowaltscreen = 1;
 
-/* frames per second st should at maximum draw to the screen */
+/* frames per second st-ito should at maximum draw to the screen */
 static unsigned int xfps = 60;
 static unsigned int actionfps = 30;
 
@@ -160,7 +160,7 @@ static Shortcut shortcuts[] = {
 };
 
 /*
- * Special keys (change & recompile st.info accordingly)
+ * Special keys (change & recompile st-ito.info accordingly)
  *
  * Mask value:
  * * Use XK_ANY_MOD to match the key no matter modifiers state
@@ -179,7 +179,7 @@ static Shortcut shortcuts[] = {
  * * > 0: crlf mode is enabled
  * * < 0: crlf mode is disabled
  *
- * Be careful with the order of the definitions because st searches in
+ * Be careful with the order of the definitions because st-ito searches in
  * this table sequentially, so any XK_ANY_MOD must be in the last
  * position for a key.
  */
