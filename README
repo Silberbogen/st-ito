@@ -1,19 +1,19 @@
-st - simple terminal
+st-ito - simple terminal
 --------------------
-st is a simple virtual terminal emulator for X which sucks less.
+st-ito is a simple virtual terminal emulator for X which sucks less.
 
 
 Requirements
 ------------
-In order to build st you need the Xlib header files.
+In order to build st-ito you need the Xlib header files.
 
 
 Installation
 ------------
-Edit config.mk to match your local setup (st is installed into
+Edit config.mk to match your local setup (st-ito is installed into
 the /usr/local namespace by default).
 
-Afterwards enter the following command to build and install st (if
+Afterwards enter the following command to build and install st-ito (if
 necessary as root):
 
     make clean install
@@ -21,10 +21,10 @@ necessary as root):
 
 Running st
 ----------
-If you did not install st with make clean install, you must compile
-the st terminfo entry with the following command:
+If you did not install st-ito with make clean install, you must compile
+the st-ito terminfo entry with the following command:
 
-    tic -s st.info
+    tic -s st-ito.info
 
 See the man page for additional details.
 
