@@ -1,26 +1,54 @@
-.TH ST 1 st\-VERSION
+.TH ST 1 st-ito\-VERSION
 .SH NAME
-st \- simple terminal
+st-ito \- simple terminal
 .SH SYNOPSIS
-.B st
-.RB [ \-a ]
+.B st-ito
+.RB [ \-aiv ]
 .RB [ \-c
 .IR class ]
 .RB [ \-f
 .IR font ]
 .RB [ \-g
 .IR geometry ]
+.RB [ \-n
+.IR name ]
 .RB [ \-o
-.IR file ]
+.IR iofile ]
+.RB [ \-T 
+.IR title ]
+.RB [ \-t 
+.IR title ]
+.RB [ \-l
+.IR line ]
+.RB [ \-w 
+.IR windowid ]
+.RB [ \-e
+.IR command 
+.RI [ arguments ...]]
+.PP
+.B st-ito
+.RB [ \-aiv ]
+.RB [ \-c
+.IR class ]
+.RB [ \-f
+.IR font ]
+.RB [ \-g
+.IR geometry ]
+.RB [ \-n
+.IR name ]
+.RB [ \-o
+.IR iofile ]
+.RB [ \-T 
+.IR title ]
 .RB [ \-t 
 .IR title ]
 .RB [ \-w 
 .IR windowid ]
-.RB [ \-v ]
-.RB [ \-e
-.IR command ...]
+.RB \-l
+.IR line
+.RI [ stty_args ...]
 .SH BESCHREIBUNG
-.B st
+.B st-ito
 ist ein einfacher Terminal-Emulator.
 .SH OPTIONEN
 .TP
