@@ -1,5 +1,5 @@
 st-ito - simple terminal
---------------------
+------------------------
 st-ito is a simple virtual terminal emulator for X which sucks less.
 
 
@@ -19,8 +19,8 @@ necessary as root):
     make clean install
 
 
-Running st
-----------
+Running st-ito
+--------------
 If you did not install st-ito with make clean install, you must compile
 the st-ito terminfo entry with the following command:
 
